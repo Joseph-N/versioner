@@ -1,0 +1,42 @@
+<% if @article.errors.any? %>
+    <% @article.errors.full_messages.each do |msg| %>
+        <p><%= msg %></p>
+        <% end %>
+    <% end %>
+
+<%= form_for([@organisation, @article], html: { multipart: true }) do |f| %>
+    <div>
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </div>
+    <div>
+      <%= f.label :body %>
+      <%= f.text_area :body %>
+    </div>
+    <div>
+      <%= f.fields_for :attachments do |builder| %>
+          <% if builder.object.new_record? %>
+              <%= render 'attachment_fields', :f => builder %>
+          <% else %>
+              <div class="pull-left col-md-2">
+                <%= image_tag builder.object.image.url(:thumb) %><br>
+                <%= check_box_tag "preserved_attachments[]", builder.object.id %>
+                <label>Keep</label>
+              </div>
+
+
+
+          <% end %>
+      <% end %>
+    </div>
+    <div>
+      <br>
+      <%= link_to_add_fields "Add Attachment", f, :attachments if @article.new_record? %>
+    </div>
+    <div class="clearfix" style="clear: both">
+      <br>
+      <%= f.submit %>
+    </div>
+
+
+<% end %>

@@ -1,0 +1,13 @@
+<div class="col-md-12 margin-top-50">
+ <p> <%= link_to image_tag(@attachment.image.url(:medium)), @attachment.image.url %></p>
+  <h4>
+    <%= link_to "Edit", edit_organisation_article_attachment_path(@organisation, @article, @attachment) %>
+    | Version <%= @attachment.version %>
+    <% if @attachment.version > 1 %>
+        | <%= link_to "Previous version", :version => @attachment.version-1 %>
+    <% end %>
+    <% if params[:version] %>
+        | <%= link_to "Latest version", :version => nil %>
+    <% end %>
+  </h4>
+</div>

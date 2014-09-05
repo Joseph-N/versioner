@@ -1,0 +1,10 @@
+<div class="col-md-12 margin-top-50">
+  <h2>Edit Attachment</h2>
+  <p> <%= image_tag(@attachment.image.url(:medium)) %></p>
+  <%= form_for [@organisation,@article,@attachment], html: { multipart: true } do |f| %>
+    <%= f.file_field :image %>
+      <br>
+      <%= f.submit %>
+  <% end %>
+
+</div>

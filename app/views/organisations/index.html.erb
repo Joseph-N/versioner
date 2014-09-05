@@ -1,0 +1,11 @@
+<div class="jumbotron">
+  <h1>Organisations!</h1>
+  <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>
+  <p><%= link_to "Create Organisation", new_organisation_path, class: "btn btn-lg btn-success", role: "button" %></p>
+</div>
+
+<div class="col-md-12">
+  <% if @organisations.any? %>
+  <%= render @organisations %>
+  <% end %>
+</div>

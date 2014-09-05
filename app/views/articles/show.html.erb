@@ -1,0 +1,27 @@
+<div class="col-md-12 margin-top-50">
+  <h2><%= @article.title %></h2>
+
+  <p><%= @article.body %></p>
+
+  <h4>
+    <%= link_to "Edit", edit_organisation_article_path(@organisation, @article) %>
+    | Version <%= @article.version %>
+    <% if @article.version > 1 %>
+        | <%= link_to "Previous version", :version => @article.version-1 %>
+    <% end %>
+    <% if params[:version] %>
+        | <%= link_to "Latest version", :version => nil %>
+    <% end %>
+  </h4>
+
+
+  <h3>Attachments</h3>
+  <% if @attachments.any? %>
+      <% @attachments.each do |attachment| %>
+          <%= link_to image_tag(attachment.image.url(:thumb)), [@organisation,@article, attachment] %>
+      <% end %>
+  <% else %>
+      <p>No attachement</p>
+  <% end %>
+
+</div>

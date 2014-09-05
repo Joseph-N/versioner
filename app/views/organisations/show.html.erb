@@ -1,0 +1,12 @@
+<div class="jumbotron">
+  <h1><%= @organisation.name %></h1>
+  <p class="lead"><%= @organisation.description %></p>
+</div>
+<div class="col-md-12">
+  <h2>Articles</h2>
+  <% if @organisation.articles.any? %>
+      <%= render @organisation.articles %>
+  <% else %>
+      <p>No articles found for this organisation</p>
+  <% end %>
+</div>

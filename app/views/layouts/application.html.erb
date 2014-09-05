@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Versioner</title>
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+   <%= render 'layouts/shim' %>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="masthead">
+    <h3 class="text-muted">Versioner</h3>
+    <ul class="nav nav-justified">
+      <li class="<%= controller_name == "home" ? "active" : "" %>"><%= link_to "Home", root_path %></li>
+      <li class="<%= controller_name == "organisations" ? "active" : "" %>"><%= link_to "Organisations", organisations_path %></li>
+      <li class="<%= controller_name == "articles" ? "active" : "" %>"><%= link_to "Articles", '#' %></li>
+    </ul>
+  </div>
+
+
+  <!-- Example row of columns -->
+  <div class="row">
+    <div class="col-md-12">
+      <% flash.each do |key, value| %>
+          <div class="text-center alert-dismissible  <%= flash_class(key) %>" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+              <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>
+            <%= value %>
+          </div>
+      <% end %>
+    </div>
+
+    <%= yield %>
+  </div>
+
+  <!-- Site footer -->
+  <div class="footer">
+    <p>&copy; Company 2014</p>
+  </div>
+
+</div> <!-- /container -->
+
+</body>
+</html>
+

@@ -1,0 +1,9 @@
+<div class="col-md-12 margin-top-50">
+  <%= errors_for @organisation %>
+  <%= form_for @organisation do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+
+      <%= f.submit "Create" %>
+  <% end %>
+</div>
