@@ -1,27 +1,30 @@
-<div class="col-md-12 margin-top-50">
+<div class="col-md-12">
   <h2><%= @article.title %></h2>
 
   <p><%= @article.body %></p>
 
   <h4>
     <%= link_to "Edit", edit_organisation_article_path(@organisation, @article) %>
-    | Version <%= @article.version %>
+    | Version <%= @article.version %> of <%= @article.versions.count + 1 %>
     <% if @article.version > 1 %>
-        | <%= link_to "Previous version", :version => @article.version-1 %>
+        | <%= link_to "Previous version", organisation_article_path(:version => @article.version-1)%>
     <% end %>
     <% if params[:version] %>
-        | <%= link_to "Latest version", :version => nil %>
+        | <%= link_to "Latest version", organisation_article_path %>
     <% end %>
   </h4>
-
-
-  <h3>Attachments</h3>
-  <% if @attachments.any? %>
-      <% @attachments.each do |attachment| %>
-          <%= link_to image_tag(attachment.image.url(:thumb)), [@organisation,@article, attachment] %>
-      <% end %>
-  <% else %>
-      <p>No attachement</p>
-  <% end %>
-
 </div>
+
+
+<div class="col-md-12">
+  <h3>Attachments</h3>
+</div>
+
+<% if @attachments.any? %>
+    <%= render @attachments %>
+<% else %>
+    <div class="col-md-12">
+      <p>No attachement</p>
+    </div>
+<% end %>
+

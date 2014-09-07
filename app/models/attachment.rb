@@ -5,7 +5,7 @@ class Attachment < ActiveRecord::Base
 
   has_attached_file :image,
                     :keep_old_files => true,
-                    :styles => { :medium => "300x300#",:thumb => "100x100#" },
+                    :styles => { :medium => "400x400#",:thumb => "100x100#" },
                     :url => "/attachments/articles/:article_id/:id/version_:version/:style/:basename.:extension",
                     :path => ":rails_root/public/attachments/articles/:article_id/:id/version_:version/:style/:basename.:extension"
 
@@ -21,4 +21,6 @@ class Attachment < ActiveRecord::Base
   Paperclip.interpolates :version do |attachment, style|
     attachment.instance.version.to_s
   end
+
+  Paperclip.registered_attachments_styles_path = "#{Rails.root}/public/attachments/paperclip_attachments.yml"
 end

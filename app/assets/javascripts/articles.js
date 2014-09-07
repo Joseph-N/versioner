@@ -1,7 +1,7 @@
 var ready = function(){
     remove_fields = function(link) {
         $(link).prev("input[type=hidden]").val("1");
-        $(link).parent().hide();
+        $(link).parent().parent().hide();
     }
 
 

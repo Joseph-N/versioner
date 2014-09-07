@@ -14,6 +14,7 @@ class ArticlesController < ApplicationController
     @article = @organisation.articles.build(article_params)
     @article.user_id = current_user.id
     if @article.save
+      create_attachments_tracker(@article, @article.attachments.map(&:id))
       redirect_to organisation_article_path(@organisation,@article), :notice => "Successfully created article"
     else
       render 'new'

@@ -1,42 +1,53 @@
-<% if @article.errors.any? %>
-    <% @article.errors.full_messages.each do |msg| %>
-        <p><%= msg %></p>
+<div class="col-md-12">
+
+  <% if @article.errors.any? %>
+      <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <strong>Ooops!</strong> something's not right
+        <% @article.errors.full_messages.each do |msg| %>
+            <p><%= msg %></p>
         <% end %>
-    <% end %>
-
-<%= form_for([@organisation, @article], html: { multipart: true }) do |f| %>
-    <div>
-      <%= f.label :title %>
-      <%= f.text_field :title %>
-    </div>
-    <div>
-      <%= f.label :body %>
-      <%= f.text_area :body %>
-    </div>
-    <div>
-      <%= f.fields_for :attachments do |builder| %>
-          <% if builder.object.new_record? %>
-              <%= render 'attachment_fields', :f => builder %>
-          <% else %>
-              <div class="pull-left col-md-2">
-                <%= image_tag builder.object.image.url(:thumb) %><br>
-                <%= check_box_tag "preserved_attachments[]", builder.object.id %>
-                <label>Keep</label>
-              </div>
+      </div>
+  <% end %>
 
 
+  <%= form_for([@organisation, @article], html: { multipart: true, role: "form" }) do |f| %>
+      <div class="form-group">
+        <%= f.label :title %>
+        <%= f.text_field :title, class: "form-control", placeholder: "Title" %>
+      </div>
 
-          <% end %>
-      <% end %>
-    </div>
-    <div>
-      <br>
-      <%= link_to_add_fields "Add Attachment", f, :attachments if @article.new_record? %>
-    </div>
-    <div class="clearfix" style="clear: both">
-      <br>
-      <%= f.submit %>
-    </div>
+      <div class="form-group">
+        <%= f.label :body %>
+        <%= f.text_area :body, class: "form-control", rows: 7, cols: 30 %>
+      </div>
+
+      <div class="form-group">
+        <%= f.fields_for :attachments do |builder| %>
+            <% if builder.object.new_record? %>
+                <%= render 'attachment_fields', :f => builder %>
+            <% else %>
+                <div class="col-md-2">
+                  <%= link_to image_tag(builder.object.image.url(:medium)), [@organisation, @article, builder.object], class: "thumbnail" %>
+                  <div class="checkbox">
+                    <label>
+                      <%= check_box_tag "preserved_attachments[]", builder.object.id %> Keep
+                    </label>
+                  </div>
+                </div>
+            <% end %>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <%= link_to_add_fields "Add Attachment", f, :attachments if @article.new_record? %>
+      </div>
+
+      <div class="form-group" style="clear: both; margin-top: 20px">
+        <%= f.submit class: "btn btn-danger btn-lg" %>
+      </div>
 
 
-<% end %>
+  <% end %>
+</div>
+
