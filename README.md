@@ -1,4 +1,4 @@
-== PROOF OF CONCEPT APP README
+# PROOF OF CONCEPT APP README
 
 Versioner, a generic name I gave this project is a simple rails project that versions articles and their related files.
 Articles belong to an organisation and so are users. The application users `postgresql` as it's database. You will have
@@ -36,7 +36,7 @@ On registration, a user is automatically assigned to an organisation (for now) s
 
 ```ruby
 class User < ActiveRecord::Base
-  # validations etc -----
+  # validations etc 
 
   # assign a user to a random organisation
   before_save :assign_organisation
@@ -66,17 +66,14 @@ The vestal versions gem will automatically set up the `has_many` revisions to ea
 
 ## How it works
 
-After you log in, you'll see a `new article` button on the navigation bar. Clicking on it will take you to a form to create
-a new article. Fill in the required fields an also you can attach as many files as you would want before creating the article.
-This is set up by the `accepts_nested_attributes_for :attachments, allow_destroy: true, reject_if: proc { |a| a[:image].blank? }`
-directive in article model.
+After you log in, you'll see a `new article` button on the navigation bar. Clicking on it will take you to a form to create a new article. Fill in the required fields an also you can attach as many files as you would want before creating the article.
 
-The reason I din't use the jQuery upload plugin in my blog post is because it uploads automatically on selecting the file.
-It would work if we were to create the attachments separately after we create an article.
+This is set up by this directive in the article model
+ `accepts_nested_attributes_for :attachments, allow_destroy: true, reject_if: proc { |a| a[:image].blank? }`
 
-After creating the article, you'll be redirected to the article and you'll see the uploaded attachments. To create a new
-version, just hit the edit button and change any attribute you wish and also the attachments you would want to keep by checking
-the `keep` checkbox present on the edit form.
+The reason I din't use the jQuery upload plugin in my blog post is because it uploads automatically on selecting the file. It would work if we were to create the attachments separately after we create an article.
+
+After creating the article, you'll be redirected to the article and you'll see the uploaded attachments. To create a new version, just hit the edit button and change any attribute you wish and also the attachments you would want to keep by checking the `keep` checkbox present on the edit form.
 
 On submit, we'll save the id's of the checked attachments to the article's attachment_tracker model so that we keep track
 of the attachments that belonged to an article at a particular version.
@@ -84,10 +81,9 @@ of the attachments that belonged to an article at a particular version.
 Attachments can also be edited by clicking on the attachment thumbnail, hitting edit button and then uploading a new
 version (image) and that will automatically create a new version for it.
 
----
+## conclusion
 
-That should be it! I'm hoping I din't leave anything out from the requirements. Please feel free to reach me regarding
-any questions on this either by email or on oDesk message. I will be more than glad to clarify any functionality/ issue
+That should be it! I'm hoping I din't leave anything out from the requirements. Please feel free to reach me regarding any questions on this either by email or on oDesk message. I will be more than glad to clarify any functionality/ issue
 
 
-### Thank you.
+### Thank you so much!
